@@ -18,7 +18,7 @@ const NewNote = () => {
       
     }
     console.log(notepad)
-    fetch('https://localhost:44446/notepad',{
+    fetch('/notepad',{
       method: 'POST',
       headers:{
         'Content-type':'application/json'
