@@ -11,7 +11,7 @@ namespace notepad_app.Helper
             string connectionString = string.Empty;
 
 
-            var _configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json");
+            var _configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").AddEnvironmentVariables();
             var config = _configuration.Build();
             connectionString = config.GetConnectionString("NotepadConnectionString");
 
