@@ -54,6 +54,7 @@ export class Home extends Component {
     async populateNotepadData() {
         const response = await fetch('notepad');
         const data = await response.json();
+        console.log("test data: " + JSON.stringify(data))
         this.setState({ notepadData: data, loading: false });
     }
 }
