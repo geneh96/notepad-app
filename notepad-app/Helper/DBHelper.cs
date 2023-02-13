@@ -54,9 +54,8 @@ namespace notepad_app.Helper
         public static void CreateNewNote(string title, string notes)
         {
             string? connectionString = DBHelper.ReturnConnectionString();
-            string queryString = $"INSERT INTO notepad VALUES ('{title}', '{notes}', '{DateTime.Now}');";
+            string queryString = $"INSERT INTO notepad VALUES ('{title}', '{notes}', '{DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss tt")}');";
 
-            DataTable notepadTable = new DataTable();
             SqlConnection conn;
             using (conn = new SqlConnection(connectionString))
             {

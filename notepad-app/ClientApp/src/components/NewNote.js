@@ -25,7 +25,8 @@ const NewNote = () => {
         body: JSON.stringify(notepad)
     });
 
-    e.target.reset();
+      e.target.reset();
+      window.location.reload();
 
   }
 

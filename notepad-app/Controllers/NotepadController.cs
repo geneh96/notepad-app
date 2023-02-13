@@ -45,7 +45,7 @@ namespace notepad_app.Controllers
         public void Post([FromBody]Notepad notepad)
         {   
             DBHelper.CreateNewNote
-            ( 
+            (                
                 String.IsNullOrEmpty(notepad.Title)?"":notepad.Title,
                 String.IsNullOrEmpty(notepad.Summary)?"":notepad.Summary
             );
