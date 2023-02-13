@@ -10,16 +10,16 @@ namespace notepad_app.Helper
         {
             string? connectionString = string.Empty;
 
-            if (String.IsNullOrEmpty(Environment.GetEnvironmentVariable("DB_CONNECTION_STRING")))
+            if (String.IsNullOrEmpty(Environment.GetEnvironmentVariable("DB_CONNECTION_STRING", EnvironmentVariableTarget.User)))
             {
                 var _configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json");
                 var config = _configuration.Build();
                 connectionString = config.GetConnectionString("NotepadConnectionString");
             }
             else
-                connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION_STRING");
+                connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION_STRING", EnvironmentVariableTarget.User);
 
-            return connectionString;
+            return String.Format(connectionString);
         }
         public static Tuple<DataTable, string> ConnectDB()
         {
