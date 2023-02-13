@@ -20,30 +20,24 @@ namespace notepad_app.Controllers
         public IEnumerable<Notepad> Get()
         {
             List<Notepad> notepad = new List<Notepad>();
-            //Tuple<DataTable, string> results = DBHelper.ConnectDB();
-            //DataTable notepadData = results.Item1;
-            //string errMessage = results.Item2;
+            Tuple<DataTable, string> results = DBHelper.ConnectDB();
+            DataTable notepadData = results.Item1;
+            string errMessage = results.Item2;
 
-            //if (!string.IsNullOrEmpty(errMessage))
-            //{
-            //    return notepad;
-            //}
-
-
-            //foreach(DataRow row in notepadData.Rows)
-            //{
-            //    notepad.Add(new Notepad {
-            //        Date = string.IsNullOrEmpty(row[3].ToString())? DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss tt") : ((DateTime)row[3]).ToString("MM/dd/yyyy HH:mm:ss tt"),
-            //        Title = row[1].ToString(),
-            //        Summary = row[2].ToString()
-            //    });
-            //}
-            notepad.Add(new Notepad
+            if (!string.IsNullOrEmpty(errMessage))
             {
-                Date = DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss tt"),
-                Title = "Test",
-                Summary = "Test"
-            });
+                return notepad;
+            }
+
+
+            foreach(DataRow row in notepadData.Rows)
+            {
+                notepad.Add(new Notepad {
+                    Date = string.IsNullOrEmpty(row[3].ToString())? DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss tt") : ((DateTime)row[3]).ToString("MM/dd/yyyy HH:mm:ss tt"),
+                    Title = row[1].ToString(),
+                    Summary = row[2].ToString()
+                });
+            }
             return notepad;
         }
 
