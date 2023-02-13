@@ -10,14 +10,14 @@ namespace notepad_app.Helper
         {
             string? connectionString = string.Empty;
 
-            if (String.IsNullOrEmpty(Environment.GetEnvironmentVariable("DB_CONNECTION_STRING", EnvironmentVariableTarget.User)))
+            if (String.IsNullOrEmpty(Environment.GetEnvironmentVariable("DB_CONNECTION_STRING")))
             {
                 var _configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json");
                 var config = _configuration.Build();
                 connectionString = config.GetConnectionString("NotepadConnectionString");
             }
             else
-                connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION_STRING", EnvironmentVariableTarget.User);
+                connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION_STRING");
 
             return String.Format(connectionString);
         }
