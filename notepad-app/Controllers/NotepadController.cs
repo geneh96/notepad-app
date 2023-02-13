@@ -8,11 +8,6 @@ namespace notepad_app.Controllers
     [Route("[controller]")]
     public class NotepadController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
-        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
-       
 
         private readonly ILogger<NotepadController> _logger;
 

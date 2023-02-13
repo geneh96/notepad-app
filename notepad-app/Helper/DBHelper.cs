@@ -4,14 +4,27 @@ using System.Data;
 
 namespace notepad_app.Helper
 {
-    public class DBHelper
-    {
+    public static class DBHelper
+    {   
+        public static string? ReturnConnectionString()
+        {
+            string? connectionString = string.Empty;
+
+            if (String.IsNullOrEmpty(Environment.GetEnvironmentVariable("DB_CONNECTION_STRING")))
+            {
+                var _configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json");
+                var config = _configuration.Build();
+                connectionString = config.GetConnectionString("NotepadConnectionString");
+            }
+            else
+                connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION_STRING");
+
+            return connectionString;
+        }
         public static Tuple<DataTable, string> ConnectDB()
         {
-            var _configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json");
-            var config = _configuration.Build();
-            
-            string connectionString = config.GetConnectionString("NotepadConnectionString");
+            string? connectionString = DBHelper.ReturnConnectionString();
+
             string queryString = "SELECT * FROM notepad";
 
             DataTable notepadTable = new DataTable();
@@ -40,10 +53,7 @@ namespace notepad_app.Helper
 
         public static void CreateNewNote(string title, string notes)
         {
-            var _configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json");
-            var config = _configuration.Build();
-
-            string connectionString = config.GetConnectionString("NotepadConnectionString");
+            string? connectionString = DBHelper.ReturnConnectionString();
             string queryString = $"INSERT INTO notepad VALUES ('{title}', '{notes}', '{DateTime.Now}');";
 
             DataTable notepadTable = new DataTable();
