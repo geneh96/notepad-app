@@ -10,20 +10,17 @@ namespace notepad_app.Helper
         {
             string? connectionString = string.Empty;
 
-            if (String.IsNullOrEmpty(Environment.GetEnvironmentVariable("NotepadConnectionString", EnvironmentVariableTarget.Machine)))
-            {
+
                 var _configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json");
                 var config = _configuration.Build();
                 connectionString = config.GetConnectionString("NotepadConnectionString");
-            }
-            else
-                connectionString = Environment.GetEnvironmentVariable("NotepadConnectionString", EnvironmentVariableTarget.Machine);
+
 
             return connectionString;
         }
-        public static Tuple<DataTable, string> ConnectDB()
+        public static Tuple<DataTable, string> ConnectDB(string connectionString)
         {
-            string? connectionString = DBHelper.ReturnConnectionString();
+            //string? connectionString = DBHelper.ReturnConnectionString();
 
             string queryString = "SELECT * FROM notepad";
 
@@ -51,9 +48,9 @@ namespace notepad_app.Helper
             }
         }
 
-        public static void CreateNewNote(string title, string notes)
+        public static void CreateNewNote(string title, string notes, string connectionString)
         {
-            string? connectionString = DBHelper.ReturnConnectionString();
+            //string? connectionString = DBHelper.ReturnConnectionString();
             string queryString = $"INSERT INTO notepad VALUES ('{title}', '{notes}', '{DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss tt")}');";
 
             SqlConnection conn;

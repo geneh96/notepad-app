@@ -1,3 +1,5 @@
+using notepad_app;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddCors(options =>
@@ -11,6 +13,7 @@ builder.Services.AddCors(options =>
 // Add services to the container.
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddTransient<IAppConfig, AppConfig>();
 
 var app = builder.Build();
 

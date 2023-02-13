@@ -10,17 +10,18 @@ namespace notepad_app.Controllers
     {
 
         private readonly ILogger<NotepadController> _logger;
-
-        public NotepadController(ILogger<NotepadController> logger)
+        private readonly IAppConfig _appConfig;
+        public NotepadController(ILogger<NotepadController> logger, IAppConfig appConfig)
         {
             _logger = logger;
+            _appConfig = appConfig;
         }
 
         [HttpGet]
         public IEnumerable<Notepad> Get()
         {
             List<Notepad> notepad = new List<Notepad>();
-            Tuple<DataTable, string> results = DBHelper.ConnectDB();
+            Tuple<DataTable, string> results = DBHelper.ConnectDB(_appConfig.GetConfigValue());
             DataTable notepadData = results.Item1;
             string errMessage = results.Item2;
 
@@ -47,7 +48,8 @@ namespace notepad_app.Controllers
             DBHelper.CreateNewNote
             (                
                 String.IsNullOrEmpty(notepad.Title)?"":notepad.Title,
-                String.IsNullOrEmpty(notepad.Summary)?"":notepad.Summary
+                String.IsNullOrEmpty(notepad.Summary)?"":notepad.Summary,
+                _appConfig.GetConfigValue()
             );
         }
     }
