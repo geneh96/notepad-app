@@ -1,7 +1,6 @@
-import {React, useState, useRef} from 'react'
+import {React,  useRef} from 'react'
 
 const NewNote = () => {
-  const message = useState('');
   const titleRef = useRef(undefined);
   const notesRef = useRef(undefined);
 
