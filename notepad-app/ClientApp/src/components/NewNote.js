@@ -23,10 +23,12 @@ const NewNote = () => {
         'Content-type':'application/json'
       },
         body: JSON.stringify(notepad)
+    }).then(() => {
+        e.target.reset();
+        window.location.reload();
     });
 
-      e.target.reset();
-      window.location.reload();
+
 
   }
 
